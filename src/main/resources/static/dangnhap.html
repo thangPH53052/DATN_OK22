@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đăng nhập / Đăng ký</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css" />
+
+  <!-- JS: Gọi header/footer -->
+  <script src="js/dungchung/header.js"></script>
+  <script src="js/dungchung/footer.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <script>addHeader();</script>
+
+  <!-- Main content -->
+  <main class="auth-container">
+    <div class="auth-box">
+      <!-- Đăng nhập -->
+      <h2>Đăng nhập</h2>
+      <form id="loginForm" novalidate>
+        <input type="email" id="loginEmail" placeholder="Email" required autocomplete="username" />
+        <input type="password" id="loginPassword" placeholder="Mật khẩu" required autocomplete="current-password" />
+        <button type="submit">Đăng nhập</button>
+      </form>
+
+      <hr />
+
+      <!-- Đăng ký -->
+      <h2>Đăng ký</h2>
+      <form id="registerForm" novalidate>
+        <input type="text" id="registerTen" placeholder="Tên" required autocomplete="name" />
+        <input type="email" id="registerEmail" placeholder="Email" required autocomplete="email" />
+        <input type="password" id="registerPassword" placeholder="Mật khẩu" required autocomplete="new-password" />
+        <button type="submit">Đăng ký</button>
+      </form>
+
+      <!-- Thông báo -->
+      <p id="message" class="auth-message"></p>
+    </div>
+  </main>
+
+  <!-- JS xử lý đăng nhập/đăng ký -->
+  <script src="js/dungchung/auth.js"></script>
+
+  <!-- Footer -->
+  <script>addFooter();</script>
+</body>
+</html>

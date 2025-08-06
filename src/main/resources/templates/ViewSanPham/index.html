@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{view/layout}">
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách sản phẩm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #f5f7fa;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #3498db;
+    }
+
+    .btn-warning {
+      background-color: #f39c12;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 15px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 1px solid #ececec;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #dff6ff;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fbfc;
+    }
+
+    img {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      max-width: 90px;
+      height: auto;
+    }
+
+    .pagination {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      padding-left: 0;
+    }
+
+    .pagination li {
+      margin: 0 5px;
+    }
+
+    .pagination a {
+      display: block;
+      padding: 8px 14px;
+      border-radius: 6px;
+      background-color: #90e0ef;
+      color: #2c3e50;
+      font-weight: 500;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .pagination a:hover {
+      background-color: #48cae4;
+      color: white;
+    }
+
+    .active-page {
+      background-color: #f39c12 !important;
+      color: white !important;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <h1>Danh sách sản phẩm</h1>
+
+  <div class="top-bar">
+    <a th:href="@{/san-pham/add}" class="btn btn-primary">+ Thêm sản phẩm</a>
+  </div>
+
+  <!-- FORM TÌM KIẾM & BỘ LỌC -->
+  <form id="filterForm" method="get" th:action="@{/san-pham/view}" class="top-bar">
+    <input type="text" name="keyword" placeholder="Tìm theo tên"
+           th:value="${keyword}"
+           style="padding: 8px; border-radius: 6px; border: 1px solid #ccc"/>
+
+    <select name="idDanhMuc" th:value="${idDanhMuc}">
+      <option value="">--Danh mục--</option>
+      <option th:each="dm : ${danhMucs}" th:value="${dm.id}" th:text="${dm.ten}"
+              th:selected="${dm.id == idDanhMuc}"></option>
+    </select>
+
+    <select name="idThuongHieu" th:value="${idThuongHieu}">
+      <option value="">--Thương hiệu--</option>
+      <option th:each="th : ${thuongHieus}" th:value="${th.id}" th:text="${th.ten}"
+              th:selected="${th.id == idThuongHieu}"></option>
+    </select>
+
+    <select name="idChatLieu" th:value="${idChatLieu}">
+      <option value="">--Chất liệu--</option>
+      <option th:each="cl : ${chatLieus}" th:value="${cl.id}" th:text="${cl.ten}"
+              th:selected="${cl.id == idChatLieu}"></option>
+    </select>
+
+    <select name="idLoaiKhoa" th:value="${idLoaiKhoa}">
+      <option value="">--Loại khóa--</option>
+      <option th:each="lk : ${loaiKhoas}" th:value="${lk.id}" th:text="${lk.ten}"
+              th:selected="${lk.id == idLoaiKhoa}"></option>
+    </select>
+
+    <select name="idKieuDay" th:value="${idKieuDay}">
+      <option value="">--Kiểu dây--</option>
+      <option th:each="kd : ${kieuDays}" th:value="${kd.id}" th:text="${kd.ten}"
+              th:selected="${kd.id == idKieuDay}"></option>
+    </select>
+
+    <!-- Nút submit ẩn -->
+    <button class="btn btn-primary" type="submit" style="display: none;">Tìm</button>
+  </form>
+
+  <!-- BẢNG DỮ LIỆU -->
+  <table>
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Hình ảnh</th>
+      <th>Mã</th>
+      <th>Tên</th>
+      <th>Thương hiệu</th>
+      <th>Danh mục</th>
+      <th>Chất liệu</th>
+      <th>Loại khóa</th>
+      <th>Kiểu dây</th>
+      <th>Trạng thái</th>
+      <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sp, iterStat : ${sanPhams}">
+      <td th:text="${iterStat.index + 1}">1</td>
+      <td>
+        <img th:if="${!#lists.isEmpty(sp.hinhAnhUrls)}"
+             th:src="@{'/images/' + ${sp.hinhAnhUrls[0]}}" alt="ảnh"/>
+        <span th:if="${#lists.isEmpty(sp.hinhAnhUrls)}">Không ảnh</span>
+      </td>
+      <td th:text="${sp.ma}">SP001</td>
+      <td th:text="${sp.ten}">Tên sản phẩm</td>
+      <td th:text="${sp.tenThuongHieu}">Adidas</td>
+      <td th:text="${sp.tenDanhMuc}">Balo</td>
+      <td th:text="${sp.tenChatLieu}">Vải</td>
+      <td th:text="${sp.tenLoaiKhoa}">Khóa kéo</td>
+      <td th:text="${sp.tenKieuDay}">Dây đeo chéo</td>
+      <td th:text="${sp.trangThai ? 'Đang bán' : 'Ngừng bán'}"></td>
+      <td>
+        <a th:href="@{'/san-pham/edit/' + ${sp.id}}" class="btn btn-warning">Sửa</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- PHÂN TRANG -->
+  <ul class="pagination">
+    <li th:if="${currentPage > 0}">
+      <a th:href="@{'/san-pham/view?page=' + ${currentPage - 1}}">&laquo; Trước</a>
+    </li>
+    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+      <a th:href="@{'/san-pham/view?page=' + ${i}}"
+         th:text="${i + 1}"
+         th:classappend="${i == currentPage} ? 'active-page' : ''">
+      </a>
+    </li>
+    <li th:if="${currentPage < totalPages - 1}">
+      <a th:href="@{'/san-pham/view?page=' + ${currentPage + 1}}">Sau &raquo;</a>
+    </li>
+  </ul>
+
+  <!-- SCRIPT TỰ ĐỘNG SUBMIT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("filterForm");
+
+      if (!form) {
+        console.warn("Không tìm thấy form!");
+        return;
+      }
+
+      // Submit khi thay đổi dropdown
+      form.querySelectorAll("select").forEach(select => {
+        select.addEventListener("change", () => {
+          form.submit();
+        });
+      });
+
+      // Submit khi gõ trong ô tìm kiếm
+      const keywordInput = form.querySelector("input[name='keyword']");
+      if (keywordInput) {
+        let debounceTimeout;
+        keywordInput.addEventListener("input", () => {
+          clearTimeout(debounceTimeout);
+          debounceTimeout = setTimeout(() => {
+            form.submit();
+          }, 500);
+        });
+      }
+    });
+  </script>
+</div>
+</body>
+</html>

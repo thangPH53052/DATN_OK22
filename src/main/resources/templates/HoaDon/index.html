@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{view/layout}">
+<head>
+  <meta charset="UTF-8" />
+  <title>Danh sách Hóa đơn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+      <div>
+        <a href="/hoa-don/tai-quay" class="btn btn-outline-primary me-2">Tại quầy</a>
+        <a href="/hoa-don/online" class="btn btn-outline-success">Online</a>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Ngày tạo</th>
+          <th>Trạng thái</th>
+          <th>Tổng tiền</th>
+          <th>Khách hàng</th>
+          <th>SĐT</th> <!-- ✅ Thêm -->
+          <th>Địa chỉ</th> <!-- ✅ Thêm -->
+          <th>Nhân viên</th>
+          <th>Voucher</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="hd : ${hoaDons}">
+          <td th:text="${hd.id}">1</td>
+          <td th:text="${#dates.format(hd.ngayTao, 'dd/MM/yyyy')}">01/01/2025</td>
+
+          <!-- ✅ Trạng thái hiển thị đúng -->
+          <td th:switch="${hd.trangThai}">
+            <span th:case="0" class="badge bg-danger fw-bold">Chờ xử lý</span>
+            <span th:case="2" class="badge bg-primary fw-bold">Đang giao hàng</span>
+            <span th:case="1" class="badge bg-warning text-dark fw-bold">Đã thanh toán</span>
+            <span th:case="*">Không rõ</span>
+          </td>
+
+          <td th:text="${#numbers.formatDecimal(hd.tongTien, 0, 'POINT', 2, 'COMMA')}">100000</td>
+
+          <!-- ✅ Hiển thị thông tin khách hàng -->
+          <td th:text="${hd.khachHang?.ten ?: '---'}">Khách</td>
+          <td th:text="${hd.khachHang?.sdt ?: '---'}">SĐT</td>
+          <td th:text="${hd.khachHang?.diaChi ?: '---'}">Địa chỉ</td>
+
+          <td th:text="${hd.nhanVien?.ten ?: '---'}">Nhân viên</td>
+          <td th:text="${hd.voucher?.ma ?: '---'}">Voucher</td>
+
+          <td>
+            <a th:href="@{'/hoa-don/chi-tiet-form/' + ${hd.id}}" class="btn btn-primary btn-sm">🔍 Xem</a>
+          </td>
+        </tr>
+
+        <!-- ✅ Nếu danh sách rỗng -->
+        <tr th:if="${hoaDons.isEmpty()}">
+          <td colspan="10" class="text-center text-danger">Không có hóa đơn nào!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

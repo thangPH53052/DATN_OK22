@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm</title>
+
+    <link rel="shortcut icon" href="img/favicon.ico" />
+
+    <!-- Load font awesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- owl carousel libraries cho hình nhỏ -->
+    <link rel="stylesheet" href="js/owlcarousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="js/owlcarousel/owl.theme.default.min.css" />
+    <script src="js/Jquery/Jquery.min.js"></script>
+    <script src="js/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- our files -->
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/topnav.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/taikhoan.css" />
+    <link rel="stylesheet" href="css/trangchu.css" />
+    <link rel="stylesheet" href="css/home_products.css" />
+    <link rel="stylesheet" href="css/chitietsanpham.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <!-- js -->
+    <script src="js/dungchung/header.js"></script>
+    <script src="js/dungchung/footer.js"></script>
+
+    <script src="js/chitietsanpham.js"></script>
+
+    <style>
+      .chon-option {
+        margin-top: 15px;
+      }
+      .mau-sac-container button,
+      .kich-thuoc-container button {
+        border: 2px solid transparent;
+        padding: 8px 12px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.3s;
+      }
+      .mau-sac-container button {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        padding: 0;
+      }
+      .kich-thuoc-container button {
+        border: 1px solid #ccc;
+        background-color: #fff;
+      }
+      .kich-thuoc-container button.selected,
+      .mau-sac-container button.selected {
+        border-color: #f60;
+        box-shadow: 0 0 5px #f60;
+      }
+      #goiYSanPham {
+        margin: 50px 0;
+        padding: 0 20px;
+      }
+      #goiYSanPham h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+      }
+      .goiY-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .goiY-item {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        width: 220px;
+        text-align: center;
+        background: #fff;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .goiY-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .goiY-item img {
+        max-width: 100%;
+        height: 160px;
+        object-fit: contain;
+        margin-bottom: 10px;
+      }
+      .goiY-item .name {
+        font-weight: bold;
+        margin: 10px 0;
+        color: #333;
+        font-size: 16px;
+        height: 40px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .goiY-item .price {
+        color: #e53935;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .not-found {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      addTopNav();
+    </script>
+
+    <section>
+      <script>
+        addHeader();
+      </script>
+
+      <div
+        id="productNotFound"
+        style="display: none; text-align: center; margin: 50px"
+      >
+        <h1 style="color: red">Không tìm thấy sản phẩm</h1>
+        <a href="index.html" style="text-decoration: underline"
+          >Quay lại trang chủ</a
+        >
+      </div>
+
+      <div class="chitietSanpham" style="margin-bottom: 100px">
+        <h1>Đang tải...</h1>
+        <div class="rating"></div>
+
+        <div class="rowdetail group">
+          <div class="picture"><img src="" onclick="opencertain()" /></div>
+
+          <div class="price_sale">
+            <div class="area_price"></div>
+
+            <div class="chon-option">
+              <label>Màu sắc:</label>
+              <div class="mau-sac-container" id="mauSacContainer"></div>
+            </div>
+
+            <div class="chon-option">
+              <label>Kích thước:</label>
+              <div class="kich-thuoc-container" id="kichThuocContainer"></div>
+            </div>
+
+            <div class="area_promo">
+              <strong>Khuyến mãi</strong>
+              <div class="promo">
+                <img src="img/chitietsanpham/icon-tick.png" />
+                <div id="detailPromo">
+                  Giảm giá trực tiếp tại trang sản phẩm
+                </div>
+              </div>
+            </div>
+
+            <div class="policy">
+              <div>
+                <img src="img/chitietsanpham/icon-baohanh.png" />
+                <p>Bảo hành chính hãng 12 tháng.</p>
+              </div>
+              <div class="last">
+                <img src="img/chitietsanpham/1-1.jpg" />
+                <p>1 đổi 1 trong 1 tháng nếu lỗi kỹ thuật.</p>
+              </div>
+            </div>
+
+            <div class="area_order">
+              <a
+                class="buy_now"
+                onclick="themVaoGioHang(maProduct, nameProduct)"
+              >
+                <b><i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng</b>
+                <p>Giao trong 1 giờ hoặc nhận tại cửa hàng</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="info_product">
+            <h2>Thông số kỹ thuật</h2>
+            <ul class="info"></ul>
+          </div>
+        </div>
+
+        <div id="overlaycertainimg" class="overlaycertainimg">
+          <div class="close" onclick="closecertain()">&times;</div>
+          <div class="overlaycertainimg-content">
+            <img id="bigimg" class="bigimg" src="" />
+            <div class="div_smallimg owl-carousel"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="goiYSanPham">
+        <h2>Sản phẩm liên quan</h2>
+        <div class="goiY-list"></div>
+      </div>
+    </section>
+
+    <script>
+      addContainTaiKhoan();
+    </script>
+
+    <div class="footer">
+      <script>
+        addFooter();
+      </script>
+    </div>
+
+    <!-- Script xử lý sản phẩm -->
+    <script>
+      let currentProduct = {};
+      let selectedMauSac = null;
+      let selectedKichThuoc = null;
+
+      function loadChiTietSanPham(productIdFromClick = null) {
+        const id =
+          productIdFromClick ||
+          new URLSearchParams(window.location.search).get("id");
+
+        if (!id) {
+          document.getElementById("productNotFound").style.display = "block";
+          document.querySelector(".chitietSanpham").style.display = "none";
+          return;
+        }
+
+        fetch(`/san-pham-chi-tiet/api/${id}`)
+          .then((res) => {
+            if (!res.ok) throw new Error("Not Found");
+            return res.json();
+          })
+          .then((data) => {
+            selectedMauSac = null;
+            selectedKichThuoc = null;
+            currentProduct = data;
+            renderProductDetail(data);
+            loadSanPhamLienQuan(data.id);
+          })
+          .catch((error) => {
+            console.error("Error loading product:", error);
+            document.getElementById("productNotFound").style.display = "block";
+            document.querySelector(".chitietSanpham").style.display = "none";
+          });
+      }
+
+      function renderProductDetail(data) {
+        document.querySelector(".chitietSanpham > h1").innerText =
+          data.tenSanPham || "---";
+        const mainImg = data.hinhAnhUrls?.[0] || "/images/default.jpg";
+        document.querySelector(".picture img").src = mainImg;
+        document.getElementById("bigimg").src = mainImg;
+
+        document.querySelector(".area_price").innerHTML = `
+          <strong>${
+            data.giaSauKhuyenMai?.toLocaleString("vi-VN") || "0"
+          }₫</strong>
+          ${
+            data.giaBan
+              ? `<span style="text-decoration: line-through; color: gray;">${data.giaBan.toLocaleString(
+                  "vi-VN"
+                )}₫</span>`
+              : ""
+          }
+        `;
+
+        if (data.hinhAnhUrls && data.hinhAnhUrls.length > 0) {
+          document.querySelector(".div_smallimg").innerHTML = data.hinhAnhUrls
+            .map((url) => `<img src="${url}" onclick="changepic(this.src)">`)
+            .join("");
+          $(".div_smallimg").owlCarousel({ items: 3, margin: 10 });
+        }
+
+        document.querySelector(".info").innerHTML = `
+          <li><strong>Tên sản phẩm:</strong> ${data.tenSanPham || "---"}</li>
+          <li><strong>Thương hiệu:</strong> ${data.thuongHieu || "---"}</li>
+          <li><strong>Chất liệu:</strong> ${data.chatLieu || "---"}</li>
+          <li><strong>Loại khóa:</strong> ${data.loaiKhoa || "---"}</li>
+          <li><strong>Kiểu dây:</strong> ${data.kieuDay || "---"}</li>
+          <li><strong>Danh mục:</strong> ${data.danhMuc || "---"}</li>
+          ${
+            data.kichThuocPhanLoai
+              ? `<li><strong>Kích thước phân loại:</strong> ${data.kichThuocPhanLoai}</li>`
+              : ""
+          }
+          ${
+            data.kichThuoc
+              ? `<li><strong>Kích thước:</strong> ${data.kichThuoc}</li>`
+              : ""
+          }
+          ${
+            data.canNang
+              ? `<li><strong>Khối lượng:</strong> ${data.canNang} kg</li>`
+              : ""
+          }
+          ${
+            data.dungTich
+              ? `<li><strong>Dung tích:</strong> ${data.dungTich} lít</li>`
+              : ""
+          }
+          ${data.moTa ? `<li><strong>Mô tả:</strong> ${data.moTa}</li>` : ""}
+          <li><strong>Số lượng còn:</strong> ${data.soLuong || 0}</li>
+        `;
+
+        // Màu sắc
+        const mauSacContainer = document.getElementById("mauSacContainer");
+        mauSacContainer.innerHTML = data.dsMauSac?.length
+          ? data.dsMauSac
+              .map(
+                (mau) =>
+                  `<button style="background-color:${mau.maMau};" title="${
+                    mau.ten
+                  }" onclick="chonMauSac(this, '${mau.maMau}')" ${
+                    mau.hetHang
+                      ? "disabled style='opacity:0.4; cursor:not-allowed'"
+                      : ""
+                  }></button>`
+              )
+              .join("")
+          : "<p>Không có tùy chọn màu sắc</p>";
+
+        // Kích thước
+        const kichThuocContainer =
+          document.getElementById("kichThuocContainer");
+        kichThuocContainer.innerHTML = data.dsKichThuoc?.length
+          ? data.dsKichThuoc
+              .map(
+                (size) =>
+                  `<button onclick="chonKichThuoc(this, '${size.ten}')" ${
+                    size.hetHang
+                      ? "disabled style='opacity:0.4; cursor:not-allowed'"
+                      : ""
+                  }>${size.ten}</button>`
+              )
+              .join("")
+          : "<p>Không có tùy chọn kích thước</p>";
+
+        window.maProduct = data.id;
+        window.nameProduct = data.tenSanPham;
+      }
+
+      function loadSanPhamLienQuan(idSanPham) {
+        fetch(`/san-pham/api/lien-quan/${idSanPham}`)
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((data) => {
+            const goiYList = document.querySelector(".goiY-list");
+            if (!Array.isArray(data) || data.length === 0) {
+              goiYList.innerHTML =
+                '<div class="not-found">Không có sản phẩm liên quan</div>';
+              return;
+            }
+            goiYList.innerHTML = data
+              .map(
+                (sp) => `
+              <div class="goiY-item" data-id="${sp.idSanPhamChiTiet || sp.id}">
+                <div class="product-link">
+                  <img src="${sp.hinhAnh || "/images/default.jpg"}" alt="${
+                  sp.tenSanPham
+                }" />
+                  <div class="name">${sp.tenSanPham}</div>
+                  <div class="price">${(sp.giaBan || 0).toLocaleString(
+                    "vi-VN"
+                  )}₫</div>
+                </div>
+              </div>
+            `
+              )
+              .join("");
+            document.querySelectorAll(".goiY-item").forEach((item) => {
+              item.addEventListener("click", function () {
+                const productId = this.getAttribute("data-id");
+                loadChiTietSanPham(productId);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              });
+            });
+          })
+          .catch(() => {
+            document.querySelector(".goiY-list").innerHTML =
+              '<div class="not-found">Không thể tải sản phẩm liên quan</div>';
+          });
+      }
+
+      function changepic(src) {
+        document.getElementById("bigimg").src = src;
+        document.querySelector(".picture img").src = src;
+      }
+
+      function opencertain() {
+        document.getElementById("overlaycertainimg").style.display = "block";
+      }
+
+      function closecertain() {
+        document.getElementById("overlaycertainimg").style.display = "none";
+      }
+
+      function chonMauSac(btn, value) {
+        document
+          .querySelectorAll(".mau-sac-container button")
+          .forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedMauSac = value;
+      }
+
+      function chonKichThuoc(btn, value) {
+        document
+          .querySelectorAll(".kich-thuoc-container button")
+          .forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedKichThuoc = value;
+      }
+
+      function themVaoGioHang(productId, productName) {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (!user) {
+          alert("⚠ Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+          window.location.href = "/dangnhap.html";
+          return;
+        }
+
+        // Kiểm tra và lấy thông tin màu sắc/kích thước
+        const mauSac = selectedMauSac || null;
+        const kichThuoc = selectedKichThuoc || null;
+
+        // Hiển thị loading
+        const btn = document.querySelector(".buy_now");
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Đang thêm...';
+        btn.disabled = true;
+
+        fetch("/api/gio-hang", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            email: user.email,
+            idSanPhamChiTiet: productId,
+            soLuong: 1,
+            mauSac: mauSac,
+            kichThuoc: kichThuoc,
+          }),
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error("Không thể thêm vào giỏ hàng");
+            return res.json();
+          })
+          .then(() => {
+            alert(`✅ Đã thêm "${productName}" vào giỏ hàng`);
+            // Load lại giỏ hàng trước khi chuyển trang
+            return fetch(`/api/gio-hang/${user.email}`, {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            });
+          })
+          .then((res) => res.json())
+          .then((cart) => {
+            localStorage.setItem(
+              "gioHangDat",
+              JSON.stringify(cart.items || [])
+            );
+            window.location.href = "/giohang.html";
+          })
+          .catch((err) => {
+            console.error(err);
+            alert(
+              `❌ Lỗi: ${err.message || "Có lỗi xảy ra khi thêm vào giỏ hàng"}`
+            );
+          })
+          .finally(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => loadChiTietSanPham());
+      addContainTaiKhoan();
+    </script>
+    <script src="js/chitietsanpham.js"></script>
+  </body>
+</html>

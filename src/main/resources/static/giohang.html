@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giỏ hàng</title>
+
+  <link rel="shortcut icon" href="img/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/gioHang.css" />
+
+  <script src="js/Jquery/Jquery.min.js"></script>
+  <script src="js/dungchung/header.js"></script>
+  <script src="js/dungchung/footer.js"></script>
+  <script src="js/dungchung/giohang.js" defer></script>
+</head>
+<body>
+  <!-- <script>addTopNav();</script> -->
+
+  <section>
+    <script>addHeader();</script>
+
+    <div class="cart-container">
+      <h2>🛒 Giỏ hàng của bạn</h2>
+
+      <table id="cartTable" class="table">
+        <thead>
+          <tr>
+            <th>Hình</th>
+            <th>Tên sản phẩm</th>
+            <th>Màu</th>
+            <th>Kích thước</th>
+            <th>Số lượng</th>
+            <th>Giá</th>
+            <th>Tổng</th>
+            <th>Xoá</th>
+          </tr>
+        </thead>
+        <tbody id="cartBody"></tbody>
+      </table>
+
+      <!-- ✅ Nút Thanh toán -->
+      <div id="checkoutContainer" style="text-align:right; margin-top: 16px;">
+        <!-- Sẽ được render từ giohang.js nếu có sản phẩm -->
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <script>addFooter();</script>
+  </div>
+</body>
+</html>

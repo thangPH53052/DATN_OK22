@@ -1,0 +1,319 @@
+/* Styles for thongtinkhachhang.html */
+
+/* Container */
+.customer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Page title */
+.page-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+/* Section titles */
+.section-title {
+  font-size: 22px;
+  color: #444;
+  margin: 30px 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Customer info table */
+.customer-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.customer-info-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.customer-info-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.customer-info-table td:first-child {
+  font-weight: bold;
+  width: 200px;
+}
+
+.customer-info-table td:nth-child(2) {
+  color: #333;
+}
+
+/* Edit buttons */
+.edit-button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Order container */
+.order-container {
+  margin-bottom: 30px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-date {
+  font-weight: bold;
+}
+
+.order-status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Product table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.product-table thead {
+  background-color: #f9f9f9;
+}
+
+.product-table th {
+  text-align: left;
+  font-weight: bold;
+}
+
+.product-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.price {
+  color: #666;
+}
+
+.total {
+  font-weight: bold;
+}
+
+/* Summary rows */
+.summary-row {
+  background-color: #f9f9f9;
+}
+
+.discount-row {
+  color: #28a745;
+}
+
+.discount {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.grand-total-row {
+  font-size: 16px;
+  background-color: #f0f0f0;
+}
+
+.grand-total {
+  font-size: 16px;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+/* Empty and error messages */
+.empty-message,
+.error-message {
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.empty-message {
+  background-color: #f9f9f9;
+  color: #666;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #666;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 8px 15px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .customer-info-table td:first-child {
+    width: 120px;
+  }
+  
+  .product-table th,
+  .product-table td {
+    padding: 8px;
+  }
+  
+  .modal-content {
+    width: 90%;
+    margin: 15% auto;
+  }
+}

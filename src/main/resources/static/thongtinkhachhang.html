@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Thông tin khách hàng</title>
+  <link rel="shortcut icon" href="img/favicon.ico" />
+  
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+  
+  <!-- jQuery -->
+  <script src="js/Jquery/Jquery.min.js"></script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/thongtinkhachhang.css" />
+  
+  <!-- Custom JS -->
+  <script src="js/dungchung/auth.js"></script>
+  <script src="js/dungchung/header.js"></script>
+  <script src="js/dungchung/footer.js"></script>
+  <script src="js/dungchung/utils.js"></script>
+</head>
+<body>
+  <section>
+    <script>addHeader();</script>
+  <div class="customer-container">
+    <h1 class="page-title">Thông tin khách hàng</h1>
+    
+    <!-- Thông tin cá nhân -->
+    <h2 class="section-title">Thông tin cá nhân</h2>
+    <div id="customerInfo"></div>
+    
+    <!-- Lịch sử đơn hàng -->
+    <h2 class="section-title">Lịch sử đơn hàng</h2>
+    <div id="orderHistory"></div>
+    
+    <!-- Sản phẩm trong giỏ hàng -->
+    <h2 class="section-title">Sản phẩm trong giỏ hàng</h2>
+    <div id="cartProducts"></div>
+  </div>
+  <script src="js/dungchung/thongtinkhachhang.js"></script>
+  </section>
+  
+  <div class="footer">
+    <script>addFooter();</script>
+  </div>
+  
+  <i class="fa fa-arrow-up" id="goto-top-page" onclick="gotoTop()"></i>
+</body>
+</html>

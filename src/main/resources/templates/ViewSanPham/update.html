@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{view/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cập nhật sản phẩm</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f9fafb;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        form {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            width: 150px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-save {
+            background: #007bff;
+            color: white;
+            padding: 12px 28px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-save:hover {
+            background: #0056b3;
+        }
+
+        .img-preview {
+            height: 80px;
+            margin: 4px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .back-link {
+            max-width: 900px;
+            margin: 0 auto 20px;
+            text-align: left;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        small.note {
+            display: block;
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h1>Cập nhật sản phẩm</h1>
+
+    <div class="back-link">
+        <a th:href="@{/san-pham/view}">← Quay lại danh sách</a>
+    </div>
+
+    <form th:action="@{'/san-pham/update/' + ${sanPham.id}}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Mã sản phẩm:</label>
+            <input type="text" name="ma" th:value="${sanPham.ma}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Tên sản phẩm:</label>
+            <input type="text" name="ten" th:value="${sanPham.ten}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Danh mục:</label>
+            <select name="idDanhMuc" required>
+                <option value="">-- Chọn danh mục --</option>
+                <option th:each="dm : ${danhMucs}" th:value="${dm.id}" th:selected="${dm.id == sanPham.danhMucId}" th:text="${dm.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Chất liệu:</label>
+            <select name="idChatLieu" required>
+                <option value="">-- Chọn chất liệu --</option>
+                <option th:each="cl : ${chatLieus}" th:value="${cl.id}" th:selected="${cl.id == sanPham.chatLieuId}" th:text="${cl.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Loại khóa:</label>
+            <select name="idLoaiKhoa" required>
+                <option value="">-- Chọn loại khóa --</option>
+                <option th:each="lk : ${loaiKhoas}" th:value="${lk.id}" th:selected="${lk.id == sanPham.loaiKhoaId}" th:text="${lk.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Kiểu dây:</label>
+            <select name="idKieuDay" required>
+                <option value="">-- Chọn kiểu dây --</option>
+                <option th:each="kd : ${kieuDays}" th:value="${kd.id}" th:selected="${kd.id == sanPham.kieuDayId}" th:text="${kd.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Thương hiệu:</label>
+            <select name="idThuongHieu" required>
+                <option value="">-- Chọn thương hiệu --</option>
+                <option th:each="th : ${thuongHieus}" th:value="${th.id}" th:selected="${th.id == sanPham.thuongHieuId}" th:text="${th.ten}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Mô tả:</label>
+            <textarea name="moTa" th:text="${sanPham.moTa}"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Trọng lượng:</label>
+            <input type="number" name="canNang" step="0.01" th:value="${sanPham.canNang}" />
+        </div>
+
+        <div class="form-group">
+            <label>Dung tích:</label>
+            <input type="number" name="dungTich" step="0.01" th:value="${sanPham.dungTich}" />
+        </div>
+
+        <div class="form-group">
+            <label>Kích thước:</label>
+            <input type="text" name="kichThuoc" th:value="${sanPham.kichThuoc}" />
+        </div>
+
+        <div class="form-group">
+            <label>Trạng thái:</label>
+            <select name="trangThai" required>
+                <option th:value="true" th:selected="${sanPham.trangThai}">Đang bán</option>
+                <option th:value="false" th:selected="${!sanPham.trangThai}">Ngừng bán</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Ảnh hiện tại:</label>
+            <div th:if="${sanPham.hinhAnhUrls != null}">
+                <img th:each="url : ${sanPham.hinhAnhUrls}" th:src="@{'/images/' + ${url}}" class="img-preview" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Ảnh mới:</label>
+            <div style="flex: 1;">
+                <input type="file" name="hinhAnhs" multiple />
+                <small class="note">* Nếu chọn ảnh mới, toàn bộ ảnh cũ sẽ bị xóa và thay thế.</small>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-save">💾 Cập nhật sản phẩm</button>
+        </div>
+    </form>
+</div>
+
+<!-- ✅ JS Hiển thị SweetAlert -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let success = /*[[${successMessage}]]*/ null;
+    let error = /*[[${errorMessage}]]*/ null;
+
+    if (success !== null) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: success,
+            confirmButtonText: 'OK'
+        });
+    }
+
+    if (error !== null) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: error,
+            confirmButtonText: 'OK'
+        });
+    }
+    /*]]>*/
+</script>
+
+<!-- ✅ JS bắt lỗi required -->
+<script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const requiredFields = [
+            "ma", "ten", "idDanhMuc", "idChatLieu",
+            "idLoaiKhoa", "idKieuDay", "idThuongHieu", "trangThai"
+        ];
+        let valid = true;
+        let firstInvalid = null;
+
+        requiredFields.forEach(fieldName => {
+            const input = document.querySelector(`[name="${fieldName}"]`);
+            if (!input || input.value.trim() === "") {
+                input.style.border = "2px solid red";
+                if (!firstInvalid) firstInvalid = input;
+                valid = false;
+            } else {
+                input.style.border = "1px solid #ccc";
+            }
+        });
+
+        if (!valid) {
+            e.preventDefault();
+            if (firstInvalid) firstInvalid.focus();
+            Swal.fire({
+                icon: "warning",
+                title: "Thiếu thông tin",
+                text: "Vui lòng điền đầy đủ các trường bắt buộc!",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+</script>
+</body>
+</html>

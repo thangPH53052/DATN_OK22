@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/thanhtoan.css" />
+    <script src="js/Jquery/Jquery.min.js"></script>
+    <script src="js/dungchung/header.js"></script>
+    <script src="js/dungchung/footer.js"></script>
+    <script src="js/dungchung/thanhtoan.js" defer></script>
+  </head>
+  <body>
+    <script>
+      // addTopNav();
+    </script>
+    <script>
+      addHeader();
+    </script>
+
+    <section class="checkout-container">
+      <h2>📋 Thông tin thanh toán</h2>
+
+      <form id="checkoutForm" onsubmit="datHang(event)">
+        <div class="form-group">
+          <label for="hoTen">Họ tên:</label>
+          <input type="text" id="hoTen" required />
+        </div>
+        <div class="form-group">
+          <label for="diaChi">Địa chỉ:</label>
+          <input type="text" id="diaChi" required />
+        </div>
+        <div class="form-group">
+          <label for="sdt">Số điện thoại:</label>
+          <input type="tel" id="sdt" pattern="[0-9]{10,11}" required />
+          <small class="form-text">Ví dụ: 0912345678</small>
+        </div>
+        <div class="form-group">
+          <label for="ghiChu">Ghi chú:</label>
+          <textarea id="ghiChu" rows="2" placeholder="Ghi chú về đơn hàng (nếu có)"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="voucherSelect">Chọn mã giảm giá (Voucher):</label>
+          <select id="voucherSelect" onchange="chonVoucher()" class="form-control">
+            <option value="">-- Không sử dụng --</option>
+          </select>
+          <p id="voucherMessage" class="voucher-message"></p>
+        </div>
+
+        <div class="order-summary">
+          <h3>🛍 Sản phẩm đã chọn:</h3>
+          <div id="productList" class="product-list"></div>
+
+          <div class="price-summary">
+            <div class="price-row">
+              <span>Tổng tiền hàng:</span>
+              <span id="subtotal">0₫</span>
+            </div>
+            <div class="price-row discount">
+              <span>Giảm giá:</span>
+              <span id="discount">0₫</span>
+            </div>
+            <div class="price-row total">
+              <span>Tổng thanh toán:</span>
+              <span id="total">0₫</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="payment-methods">
+          <h3>Phương thức thanh toán:</h3>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" name="paymentMethod" value="cod" checked />
+              <span>Thanh toán khi nhận hàng (COD)</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="paymentMethod" value="bank" />
+              <span>Chuyển khoản ngân hàng</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button type="submit" class="btn btn-success btn-block">
+            🎉 Xác nhận đặt hàng
+          </button>
+          <a href="/giohang.html" class="btn btn-link">Quay lại giỏ hàng</a>
+        </div>
+      </form>
+    </section>
+
+    <div class="footer">
+      <script>
+        addFooter();
+      </script>
+    </div>
+  </body>
+</html>
